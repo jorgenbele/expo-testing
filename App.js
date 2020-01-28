@@ -11,6 +11,7 @@ import TabBarIcon from './src/components/TabBarIcon'
 
 import ListsScreen from "./src/screens/ListsScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
+import WorkspacesScreen from "./src/screens/WorkspacesScreen";
 
 export default function App() {
   return (
@@ -46,7 +47,8 @@ const makeNavigationOptions = (label, iconName, color) => {
 const BottomTabNavigator = createMaterialBottomTabNavigator(
   {
     Lists: { screen: ListsScreen, ...makeNavigationOptions('Lists', 'list', '#00796b')},
-    Settings: { screen: SettingsScreen, ...makeNavigationOptions('Settings', 'settings', '#c51162') }
+    Workspaces: { screen: WorkspacesScreen, ...makeNavigationOptions('Workspaces', 'apps', '#6200ee') },
+    Settings: { screen: SettingsScreen, ...makeNavigationOptions('Settings', 'settings', '#c51162') },
   },
   {
     initialRouteName: "Lists",
