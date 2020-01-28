@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Platform } from "react-native";
+import { StyleSheet, Text, View, Platform, ColorPropType } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import { Provider as StoreProvider } from "react-redux";
 import store from "./src/redux/store";
@@ -24,10 +24,11 @@ export default function App() {
 
 
 
-const makeNavigationOptions = (label, iconName) => {
+const makeNavigationOptions = (label, iconName, color) => {
   return {
     navigationOptions: {
       tabBarLabel: label,
+      tabBarColor: color,
       tabBarIcon: ({ focused }) => (
         <TabBarIcon
           focused={focused}
@@ -44,12 +45,13 @@ const makeNavigationOptions = (label, iconName) => {
 
 const BottomTabNavigator = createMaterialBottomTabNavigator(
   {
-    Lists: { screen: ListsScreen, ...makeNavigationOptions('Lists', 'list')},
-    Settings: { screen: SettingsScreen, ...makeNavigationOptions('Settings', 'settings') }
+    Lists: { screen: ListsScreen, ...makeNavigationOptions('Lists', 'list', '#00796b')},
+    Settings: { screen: SettingsScreen, ...makeNavigationOptions('Settings', 'settings', '#c51162') }
   },
   {
     initialRouteName: "Lists",
-    activeColor: "#F44336"
+    shifting: true,
+    //activeColor: "#F44336"
   }
 );
 

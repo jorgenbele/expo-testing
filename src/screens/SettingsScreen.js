@@ -24,3 +24,5 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
+export const TabColor = '#fff'
