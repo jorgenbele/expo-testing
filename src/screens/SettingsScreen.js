@@ -3,12 +3,15 @@ import { StyleSheet, Text, View } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import { Provider as StoreProvider } from "react-redux";
 
-import store from "./redux/store";
+import store from "../redux/store";
 
-export default function Main() {
+import ShoppingList from "../components/ShoppingList";
+import Navbar from "../components/Navbar";
+
+export default function SettingsScreen() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>Settings</Text>
     </View>
   );
 }
