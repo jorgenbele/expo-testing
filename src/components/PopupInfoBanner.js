@@ -31,17 +31,7 @@ export default class PopupInfoBanner extends React.Component {
             }
           }
         ]}
-        icon={({ size }) => (
-          <Image
-            source={{
-              uri: "https://avatars3.githubusercontent.com/u/17571969?s=400&v=4"
-            }}
-            style={{
-              width: size,
-              height: size
-            }}
-          />
-        )}
+        icon={this.props.icon}
       >
         {this.props.message}
       </Banner>
@@ -53,5 +43,6 @@ PopupInfoBanner.defaultProps = {
   visible: true,
   message: "default message",
   confirmLabel: "confirm",
-  ignoreLabel: "ignore"
+  ignoreLabel: "ignore",
+  icon: null,
 };

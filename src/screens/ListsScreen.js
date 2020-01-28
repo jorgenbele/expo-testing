@@ -1,30 +1,38 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Provider as PaperProvider } from "react-native-paper";
-import { Provider as StoreProvider } from "react-redux";
 
-import store from "../redux/store";
+import PopupInfoBanner from "../components/PopupInfoBanner";
 
-import ShoppingList from "../components/ShoppingList";
-import Navbar from "../components/Navbar";
+export default class ListsScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {lists: this.props.lists}
+  }
 
-export default function ListsScreen() {
+  render() {
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center"
+      }
+    });
 
-  return (
-    <View style={styles.container}>
-      <Text>Lists</Text>
-      <ShoppingList />
-    </View>
-  );
+    return (
+      <>
+        {this.state.lists.length <= 0 &&
+          <PopupInfoBanner visible={true} 
+              message={'You have no lists'} 
+              confirmLabel={'Add a list'} 
+              confirmAction={() => {this.state.lists = ['test']}}
+              ignoreLabel={'Not now'}/> 
+        }
+      </>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
-
-export const TabColor = '#f00'
+ListsScreen.defaultProps = {
+  lists: [],
+}

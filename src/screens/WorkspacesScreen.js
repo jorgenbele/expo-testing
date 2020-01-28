@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 
 import PopupInfoBanner from "../components/PopupInfoBanner";
 
+import { Avatar } from 'react-native-paper'
+
 export default class WorkspacesScreen extends React.Component {
   constructor(props) {
     super(props)
@@ -19,6 +21,7 @@ export default class WorkspacesScreen extends React.Component {
       }
     });
 
+    //const iconicon = makeIcon(true, 'list');
     return (
       <>
         {this.state.workspaces.length <= 0 &&
@@ -26,7 +29,8 @@ export default class WorkspacesScreen extends React.Component {
               message={'You are currently without a workspace'} 
               confirmLabel={'Add a workspace'} 
               confirmAction={() => {this.state.workspaces = ['test']}}
-              ignoreLabel={'Not now'}/> 
+              ignoreLabel={'Not now'}
+              icon="exclamation" />
         }
       </>
     );
