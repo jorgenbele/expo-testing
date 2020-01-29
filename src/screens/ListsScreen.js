@@ -5,6 +5,8 @@ import PopupInfoBanner from "../components/PopupInfoBanner";
 
 import { Avatar, List, FAB } from "react-native-paper";
 
+import { makeListItem } from '../utils';
+
 export default class ListsScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -59,11 +61,12 @@ export default class ListsScreen extends React.Component {
                 <List.Subheader>Personal lists</List.Subheader>
                 {personalLists.map((list, index) => {
                   return (
-                    <List.Item
-                      key={list + index.toString()}
-                      title={list.name}
-                      left={() => <List.Icon icon={this.props.listIcon} />}
-                    />
+                    makeListItem(list.name, list.name)
+                    //<List.Item
+                    //  key={list + index.toString()}
+                    //  title={list.name}
+                    //  left={() => <List.Icon icon={this.props.listIcon} />}
+                    ///>
                   );
                 })}
               </>
@@ -72,11 +75,12 @@ export default class ListsScreen extends React.Component {
             <List.Subheader>Shared lists</List.Subheader>
             {sharedLists.map((list, index) => {
               return (
-                <List.Item
-                  key={list + index.toString()}
-                  title={list.name}
-                  left={() => <List.Icon icon={this.props.listIcon} />}
-                />
+                makeListItem(list.name, list.workspace)
+                //<List.Item
+                //  key={list + index.toString()}
+                //  title={list.name}
+                //  left={() => <List.Icon icon={this.props.listIcon} />}
+                ///>
               );
             })}
           </List.Section>
@@ -87,10 +91,10 @@ export default class ListsScreen extends React.Component {
           medium
           icon="plus"
           onPress={() => {
-            this.state.lists.push({
+            this.setState({lists: [{
               name: "Kollektiv2",
               workspace: "Kollektivet"
-            });
+            }, ...this.state.lists], ...this.state})
             console.log("Pressed");
           }} // FIXME: Add authentication/creation of workspace
         />

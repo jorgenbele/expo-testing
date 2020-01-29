@@ -5,6 +5,8 @@ import PopupInfoBanner from "../components/PopupInfoBanner";
 
 import { Avatar, List, FAB } from "react-native-paper";
 
+import { makeListItem } from '../utils';
+
 export default class WorkspacesScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -50,11 +52,12 @@ export default class WorkspacesScreen extends React.Component {
                 <List.Subheader>Workspaces you manage</List.Subheader>
                 {managingWorkspaces.map((workspace, index) => {
                   return (
-                    <List.Item
-                      key={workspace + index.toString()}
-                      title={workspace.name}
-                      left={() => <List.Icon icon={this.props.workspaceIcon} />}
-                    />
+                    makeListItem(workspace.name, workspace.name)
+                    //<List.Item
+                    //  key={workspace + index.toString()}
+                    //  title={workspace.name}
+                    //  left={() => <List.Icon icon={this.props.workspaceIcon} />}
+                    ///>
                   );
                 })}
               </>
@@ -63,11 +66,12 @@ export default class WorkspacesScreen extends React.Component {
             <List.Subheader>Workspaces you are part of</List.Subheader>
             {joinedWorkspaces.map((workspace, index) => {
               return (
-                <List.Item
-                  key={workspace + index.toString()}
-                  title={workspace.name}
-                  left={() => <List.Icon icon={this.props.workspaceIcon} />}
-                />
+                //<List.Item
+                //  key={workspace + index.toString()}
+                //  title={workspace.name}
+                //  left={() => <List.Icon icon={this.props.workspaceIcon} />}
+                ///>
+                    makeListItem(workspace.name, workspace.name)
               );
             })}
           </List.Section>
