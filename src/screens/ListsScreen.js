@@ -1,13 +1,14 @@
 import React from "react";
+import { ScrollView } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 import PopupInfoBanner from "../components/PopupInfoBanner";
 import { Avatar, List, FAB } from "react-native-paper";
-import { immutableReplaceAtIndex, makeListItem } from '../utils';
+import { immutableReplaceAtIndex, makeListItem } from "../utils";
 import { connect } from "react-redux";
 
-import { createList } from '../redux/actions'
+import { createList } from "../redux/actions";
 
-import store from '../redux/store'
+import store from "../redux/store";
 
 const mapStateToProps = state => {
   return { lists: state.shoppingList.lists };
@@ -36,7 +37,7 @@ class ConnectedListsScreen extends React.Component {
     });
 
     const isPersonalList = list => list.workspace === null;
-    console.log('this.props.list:');
+    console.log("this.props.list:");
     console.log(this.props.lists);
     const personalLists = this.props.lists.filter(isPersonalList);
     const sharedLists = this.props.lists.filter(l => !isPersonalList(l));
@@ -55,45 +56,46 @@ class ConnectedListsScreen extends React.Component {
             confirmLabel={"Create a list"}
             confirmAction={() => {
               this.setState({
-                lists: [{
-                  name: "Kollektiv2",
-                  workspace: "Kollektivet"
-                }, ...this.state.lists]
+                lists: [
+                  {
+                    name: "Kollektiv2",
+                    workspace: "Kollektivet"
+                  },
+                  ...this.state.lists
+                ]
               });
             }}
             ignoreLabel={"Not now"}
             icon="exclamation"
           />
         ) : (
-          <List.Section>
-            {personalLists.length > 0 && (
-              <>
-                <List.Subheader>Personal lists</List.Subheader>
-                {personalLists.map((list, index) => {
-                  return (
-                    makeListItem(list.name, list.name)
+          <ScrollView>
+            <List.Section>
+              {personalLists.length > 0 && (
+                <>
+                  <List.Subheader>Personal lists</List.Subheader>
+                  {personalLists.map((list, index) => {
+                    return makeListItem(list.name, list.name);
                     //<List.Item
                     //  key={list + index.toString()}
                     //  title={list.name}
                     //  left={() => <List.Icon icon={this.props.listIcon} />}
                     ///>
-                  );
-                })}
-              </>
-            )}
+                  })}
+                </>
+              )}
 
-            <List.Subheader>Shared lists</List.Subheader>
-            {sharedLists.map((list, index) => {
-              return (
-                makeListItem(list.name, list.workspace)
+              <List.Subheader>Shared lists</List.Subheader>
+              {sharedLists.map((list, index) => {
+                return makeListItem(list.name, list.workspace);
                 //<List.Item
                 //  key={list + index.toString()}
                 //  title={list.name}
                 //  left={() => <List.Icon icon={this.props.listIcon} />}
                 ///>
-              );
-            })}
-          </List.Section>
+              })}
+            </List.Section>
+          </ScrollView>
         )}
 
         <FAB
@@ -103,10 +105,19 @@ class ConnectedListsScreen extends React.Component {
           onPress={() => {
             console.log(store.getState());
             this.props.createList({
-              name: "List " + this.props.lists.reduce((l, r) => (l.index > r.index ? l.index : r.index), 0).toString(),
+              name:
+                "List " +
+                this.props.lists
+                  .reduce((l, r) => (l.index > r.index ? l.index : r.index), 0)
+                  .toString(),
               workspace: "Kollektivet",
-              index: 1 + this.props.lists.reduce((l, r) => (l.index > r.index ? l.index : r.index), 0) 
-            })
+              index:
+                1 +
+                this.props.lists.reduce(
+                  (l, r) => (l.index > r.index ? l.index : r.index),
+                  0
+                )
+            });
             console.log("Pressed");
           }} // FIXME: Add authentication/creation of workspace
         />
@@ -115,9 +126,12 @@ class ConnectedListsScreen extends React.Component {
   }
 }
 ConnectedListsScreen.defaultProps = {
-  listIcon: 'folder',
-  lists: [],
-}
+  listIcon: "folder",
+  lists: []
+};
 
-const ListsScreen = connect(mapStateToProps, mapDispatchToProps)(ConnectedListsScreen);
+const ListsScreen = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ConnectedListsScreen);
 export default ListsScreen;

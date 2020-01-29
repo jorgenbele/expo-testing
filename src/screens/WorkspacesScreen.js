@@ -5,10 +5,15 @@ import PopupInfoBanner from "../components/PopupInfoBanner";
 
 import { Avatar, List, FAB } from "react-native-paper";
 
-import { immutableReplaceAtIndex, makeListItem, makeWorkspaceListItem } from '../utils';
+import {
+  immutableReplaceAtIndex,
+  makeListItem,
+  makeWorkspaceListItem
+} from "../utils";
 import { connect } from "react-redux";
 
-import store from '../redux/store'
+import store from "../redux/store";
+import { ScrollView } from "react-native-gesture-handler";
 
 const mapStateToProps = state => {
   return { workspaces: state.workspaces };
@@ -53,40 +58,40 @@ class WorkspacesScreen extends React.Component {
             icon="exclamation"
           />
         ) : (
-          <List.Section>
-            {managingWorkspaces.length > 0 && (
-              <>
-                <List.Subheader>Workspaces you manage</List.Subheader>
-                {managingWorkspaces.map((workspace, index) => {
-                  return (
-                    makeWorkspaceListItem(workspace)
+          <ScrollView>
+            <List.Section>
+              {managingWorkspaces.length > 0 && (
+                <>
+                  <List.Subheader>Workspaces you manage</List.Subheader>
+                  {managingWorkspaces.map((workspace, index) => {
+                    return makeWorkspaceListItem(workspace);
                     //<List.Item
                     //  key={workspace + index.toString()}
                     //  title={workspace.name}
                     //  left={() => <List.Icon icon={this.props.workspaceIcon} />}
                     ///>
-                  );
-                })}
-              </>
-            )}
+                  })}
+                </>
+              )}
 
-            <List.Subheader>Workspaces you are part of</List.Subheader>
-            {joinedWorkspaces.map((workspace, index) => {
-              return (
-                    //<List.Item
-                    //  key={workspace + index.toString()}
-                    //  title={workspace.name}
-                    //  left={() => <List.Icon icon={this.props.workspaceIcon} />}
-                    ///>
-                    makeWorkspaceListItem(workspace)
-              );
-            })}
-          </List.Section>
+              <List.Subheader>Workspaces you are part of</List.Subheader>
+              {joinedWorkspaces.map((workspace, index) => {
+                return (
+                  //<List.Item
+                  //  key={workspace + index.toString()}
+                  //  title={workspace.name}
+                  //  left={() => <List.Icon icon={this.props.workspaceIcon} />}
+                  ///>
+                  makeWorkspaceListItem(workspace)
+                );
+              })}
+            </List.Section>
+          </ScrollView>
         )}
 
         <FAB
           style={styles.fab}
-          medium 
+          medium
           icon="plus"
           onPress={() => console.log("Pressed")} // FIXME: Add authentication/creation of workspace
         />
@@ -98,7 +103,7 @@ class WorkspacesScreen extends React.Component {
 WorkspacesScreen.defaultProps = {
   workspaceIcon: "folder",
   // FIXME: members should include current user
-  workspaces: [],
+  workspaces: []
 };
 
 const ConnectedWorkspacesScreen = connect(mapStateToProps)(WorkspacesScreen);

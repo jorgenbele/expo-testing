@@ -45,7 +45,7 @@ export const gradientsMap = {
 export const gradients = Object.keys(gradientsMap).map((k) => gradientsMap[k]);
 
 export const uniqueColor = (title, subtitle) => {
-  const c = (title.charCodeAt(0) + subtitle.charCodeAt(0))/2;
+  const c = Math.trunc((title.charCodeAt(0) + subtitle.charCodeAt(0))/2);
   console.log(c);
   return gradients[c % gradients.length];
 }

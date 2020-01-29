@@ -7,6 +7,7 @@ import { Avatar, List, FAB } from "react-native-paper";
 
 import { makeListItem } from '../utils';
 import ShoppingItem from "../components/ShoppingItem";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default class ListScreen extends React.Component {
   constructor(props) {
@@ -30,9 +31,11 @@ export default class ListScreen extends React.Component {
 
     return (
         <>
-        {this.state.list.map((l, i) => {
-            <ShoppingItem title={l.name} />
-        })}
+        <ScrollView>
+            {this.state.list.map((l, i) => {
+                <ShoppingItem title={l.name} />
+            })}
+        </ScrollView>
 
         <FAB
           style={styles.fab}
