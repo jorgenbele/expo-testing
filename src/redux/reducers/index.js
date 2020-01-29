@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
-import shoppingItem from './shoppingItem'
+import shoppingList from './shoppingList'
+import workspaces from './workspaces'
 
-export default combineReducers({ shoppingItem });
+export default combineReducers({ shoppingList, workspaces });

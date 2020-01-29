@@ -5,9 +5,16 @@ import PopupInfoBanner from "../components/PopupInfoBanner";
 
 import { Avatar, List, FAB } from "react-native-paper";
 
-import { makeListItem } from '../utils';
+import { immutableReplaceAtIndex, makeListItem, makeWorkspaceListItem } from '../utils';
+import { connect } from "react-redux";
 
-export default class WorkspacesScreen extends React.Component {
+import store from '../redux/store'
+
+const mapStateToProps = state => {
+  return { workspaces: state.workspaces };
+};
+
+class WorkspacesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = { workspaces: this.props.workspaces };
@@ -52,7 +59,7 @@ export default class WorkspacesScreen extends React.Component {
                 <List.Subheader>Workspaces you manage</List.Subheader>
                 {managingWorkspaces.map((workspace, index) => {
                   return (
-                    makeListItem(workspace.name, workspace.name)
+                    makeWorkspaceListItem(workspace)
                     //<List.Item
                     //  key={workspace + index.toString()}
                     //  title={workspace.name}
@@ -66,12 +73,12 @@ export default class WorkspacesScreen extends React.Component {
             <List.Subheader>Workspaces you are part of</List.Subheader>
             {joinedWorkspaces.map((workspace, index) => {
               return (
-                //<List.Item
-                //  key={workspace + index.toString()}
-                //  title={workspace.name}
-                //  left={() => <List.Icon icon={this.props.workspaceIcon} />}
-                ///>
-                    makeListItem(workspace.name, workspace.name)
+                    //<List.Item
+                    //  key={workspace + index.toString()}
+                    //  title={workspace.name}
+                    //  left={() => <List.Icon icon={this.props.workspaceIcon} />}
+                    ///>
+                    makeWorkspaceListItem(workspace)
               );
             })}
           </List.Section>
@@ -90,9 +97,9 @@ export default class WorkspacesScreen extends React.Component {
 
 WorkspacesScreen.defaultProps = {
   workspaceIcon: "folder",
-  workspaces: [
-    { name: "Kollektivet", isOwner: true },
-    { name: "Hjemme", isOwner: false },
-    { name: "Jobb", isOwner: false }
-  ]
+  // FIXME: members should include current user
+  workspaces: [],
 };
+
+const ConnectedWorkspacesScreen = connect(mapStateToProps)(WorkspacesScreen);
+export default ConnectedWorkspacesScreen;

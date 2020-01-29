@@ -1,13 +1,25 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-
 import PopupInfoBanner from "../components/PopupInfoBanner";
-
 import { Avatar, List, FAB } from "react-native-paper";
+import { immutableReplaceAtIndex, makeListItem } from '../utils';
+import { connect } from "react-redux";
 
-import { makeListItem } from '../utils';
+import { createList } from '../redux/actions'
 
-export default class ListsScreen extends React.Component {
+import store from '../redux/store'
+
+const mapStateToProps = state => {
+  return { lists: state.shoppingList.lists };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createList: l => dispatch(createList(l))
+  };
+}
+
+class ConnectedListsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = { lists: this.props.lists };
@@ -23,15 +35,11 @@ export default class ListsScreen extends React.Component {
       }
     });
 
-    this.state.lists = [
-      { name: "Kollektivfest", workspace: "Kollektivet" },
-      { name: "Hjemmefest", workspace: null },
-      { name: "Jobbfest", workspace: "Jobb" }
-    ];
-
     const isPersonalList = list => list.workspace === null;
-    const personalLists = this.state.lists.filter(isPersonalList);
-    const sharedLists = this.state.lists.filter(l => !isPersonalList(l));
+    console.log('this.props.list:');
+    console.log(this.props.lists);
+    const personalLists = this.props.lists.filter(isPersonalList);
+    const sharedLists = this.props.lists.filter(l => !isPersonalList(l));
 
     return (
       <>
@@ -41,14 +49,16 @@ export default class ListsScreen extends React.Component {
             visible={true}
             message={
               "You currently have " +
-              this.state.lists.length.toString() +
+              this.props.lists.length.toString() +
               " lists"
             }
             confirmLabel={"Create a list"}
             confirmAction={() => {
-              this.state.lists.push({
-                name: "Kollektiv2",
-                workspace: "Kollektivet"
+              this.setState({
+                lists: [{
+                  name: "Kollektiv2",
+                  workspace: "Kollektivet"
+                }, ...this.state.lists]
               });
             }}
             ignoreLabel={"Not now"}
@@ -91,10 +101,12 @@ export default class ListsScreen extends React.Component {
           medium
           icon="plus"
           onPress={() => {
-            this.setState({lists: [{
-              name: "Kollektiv2",
-              workspace: "Kollektivet"
-            }, ...this.state.lists], ...this.state})
+            console.log(store.getState());
+            this.props.createList({
+              name: "List " + this.props.lists.reduce((l, r) => (l.index > r.index ? l.index : r.index), 0).toString(),
+              workspace: "Kollektivet",
+              index: 1 + this.props.lists.reduce((l, r) => (l.index > r.index ? l.index : r.index), 0) 
+            })
             console.log("Pressed");
           }} // FIXME: Add authentication/creation of workspace
         />
@@ -102,7 +114,10 @@ export default class ListsScreen extends React.Component {
     );
   }
 }
-
-ListsScreen.defaultProps = {
+ConnectedListsScreen.defaultProps = {
   listIcon: 'folder',
+  lists: [],
 }
+
+const ListsScreen = connect(mapStateToProps, mapDispatchToProps)(ConnectedListsScreen);
+export default ListsScreen;
