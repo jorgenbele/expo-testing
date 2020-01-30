@@ -15,9 +15,17 @@ import { connect } from "react-redux";
 import store from "../redux/store";
 import { ScrollView } from "react-native-gesture-handler";
 
+import { createWorkspace } from "../redux/actions";
+
 const mapStateToProps = state => {
   return { workspaces: state.workspaces };
 };
+
+//function mapDispatchToProps(dispatch) {
+//  return {
+//    createWorkspace: name => dispatch(createWorkspace(name))
+//  };
+//}
 
 class WorkspacesScreen extends React.Component {
   constructor(props) {
@@ -93,7 +101,12 @@ class WorkspacesScreen extends React.Component {
           style={styles.fab}
           medium
           icon="plus"
-          onPress={() => console.log("Pressed")} // FIXME: Add authentication/creation of workspace
+          onPress={() => {
+            console.log(store.getState());
+           // this.props.createWorkspace({name: 'testworkspace'});
+            console.log("Pressed");
+            console.log(store.getState());
+          }} // FIXME: Add authentication/creation of workspace
         />
       </>
     );
@@ -106,5 +119,6 @@ WorkspacesScreen.defaultProps = {
   workspaces: []
 };
 
+//const ConnectedWorkspacesScreen = connect(mapStateToProps, mapDispatchToProps)(WorkspacesScreen);
 const ConnectedWorkspacesScreen = connect(mapStateToProps)(WorkspacesScreen);
 export default ConnectedWorkspacesScreen;

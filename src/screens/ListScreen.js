@@ -5,7 +5,7 @@ import PopupInfoBanner from "../components/PopupInfoBanner";
 
 import { Avatar, List, FAB } from "react-native-paper";
 
-import { makeListItem } from '../utils';
+import { makeListItem } from "../utils";
 import ShoppingItem from "../components/ShoppingItem";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -30,11 +30,11 @@ export default class ListScreen extends React.Component {
     const sharedLists = this.state.lists.filter(l => !isPersonalList(l));
 
     return (
-        <>
+      <>
         <ScrollView>
-            {this.state.list.map((l, i) => {
-                <ShoppingItem title={l.name} />
-            })}
+          {this.state.list.map((l, i) => {
+            <ShoppingItem title={l.name} />;
+          })}
         </ScrollView>
 
         <FAB
@@ -42,10 +42,16 @@ export default class ListScreen extends React.Component {
           medium
           icon="plus"
           onPress={() => {
-            this.setState({lists: [{
-              name: "Kollektiv2",
-              workspace: "Kollektivet"
-            }, ...this.state.lists], ...this.state})
+            this.setState({
+              lists: [
+                {
+                  name: "Kollektiv2",
+                  workspace: "Kollektivet"
+                },
+                ...this.state.lists
+              ],
+              ...this.state
+            });
             console.log("Pressed");
           }} // FIXME: Add authentication/creation of workspace
         />
@@ -55,5 +61,5 @@ export default class ListScreen extends React.Component {
 }
 
 ListsScreen.defaultProps = {
-  listIcon: 'folder',
-}
+  listIcon: "folder"
+};

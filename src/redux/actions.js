@@ -1,4 +1,4 @@
-import { SHOPPING_LIST } from "./actionTypes";
+import { SHOPPING_LIST, WORKSPACE } from "./actionTypes";
 
 // ShoppingList
 export function addItem(list, item) {
@@ -22,4 +22,9 @@ export function createList(list) {
 }
 export function deleteList(list) {
     return { type: SHOPPING_LIST.DELETE, payload: { list } }
+}
+
+// Workspace
+export function createWorkspace(name) {
+    return { type: WORKSPACE.CREATE, payload: { name } }
 }

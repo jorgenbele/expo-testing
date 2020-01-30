@@ -43,38 +43,6 @@ export default function(state = initialState, action) {
         lists: newLists,
       };
     }
-    //case SHOPPING_LIST.RENAME: {
-    //  const { list, item, title } = action.payload;
-    //  return {
-    //    ...state,
-    //    lists: {
-    //      ...state.lists,
-    //      [list]: {
-    //        ...state.lists[list],
-    //        [item.id]: {
-    //          ...item,
-    //          title
-    //        }
-    //      }
-    //    }
-    //  };
-    //}
-    //case SHOPPING_LIST.TOGGLE_STATE: {
-    //  const { list, item } = action.payload;
-    //  return {
-    //    ...state,
-    //    lists: {
-    //      ...state.lists,
-    //      [list]: {
-    //        ...state.lists[list],
-    //        [item.id]: {
-    //          ...item,
-    //          completed: !item.completed,
-    //        }
-    //      }
-    //    }
-    //  };
-    //}
     default:
       return state;
   }

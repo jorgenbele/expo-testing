@@ -1,6 +1,6 @@
 import React from "react";
 
-import Iconicon from './components/Iconicon'
+import Iconicon from "./components/Iconicon";
 
 export const makeIcon = (name, focused) => {
   return (
@@ -15,45 +15,45 @@ export const makeIcon = (name, focused) => {
   );
 };
 
-import { ListItem } from 'react-native-elements'
-import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
+import { ListItem } from "react-native-elements";
+import TouchableScale from "react-native-touchable-scale"; // https://github.com/kohver/react-native-touchable-scale
 //import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
 
 export const gradientsMap = {
   redOrange: {
-      colors: ["#FF9800", "#F44336"],
-      start: [1, 0],
-      end: [0.2, 0]
+    colors: ["#FF9800", "#F44336"],
+    start: [1, 0],
+    end: [0.2, 0]
   },
   blue: {
-      colors: ["#1A6DC4", "#10334B"],
-      start: [1, 0],
-      end: [0.2, 0]
+    colors: ["#1A6DC4", "#10334B"],
+    start: [1, 0],
+    end: [0.2, 0]
   },
   green: {
-      colors: ["#4CA856", "#235230"],
-      start: [1, 0],
-      end: [0.2, 0]
+    colors: ["#4CA856", "#235230"],
+    start: [1, 0],
+    end: [0.2, 0]
   },
   purple: {
-      colors: ["#A934C5", "#4B059F"],
-      start: [1, 0],
-      end: [0.2, 0]
-  },
+    colors: ["#A934C5", "#4B059F"],
+    start: [1, 0],
+    end: [0.2, 0]
+  }
 };
 
-export const gradients = Object.keys(gradientsMap).map((k) => gradientsMap[k]);
+export const gradients = Object.keys(gradientsMap).map(k => gradientsMap[k]);
 
 export const uniqueColor = (title, subtitle) => {
-  const c = Math.trunc((title.charCodeAt(0) + subtitle.charCodeAt(0))/2);
+  const c = Math.trunc((title.charCodeAt(0) + subtitle.charCodeAt(0)) / 2);
   console.log(c);
   return gradients[c % gradients.length];
-}
+};
 
 export const makeListItem = (title, subtitle) => (
   // FROM: https://react-native-elements.github.io/react-native-elements/docs/listitem.html
   <ListItem
-    key={title+subtitle} // FIXME: make unique 
+    key={title + subtitle} // FIXME: make unique
     Component={TouchableScale}
     friction={90} //
     tension={100} // These props are passed to the parent component (here TouchableScale)
@@ -69,9 +69,9 @@ export const makeListItem = (title, subtitle) => (
   />
 );
 
-import { Avatar, Badge, withBadge } from 'react-native-elements'
+import { Avatar, Badge, withBadge } from "react-native-elements";
 
-export const makeWorkspaceListItem = (workspace) => {
+export const makeWorkspaceListItem = workspace => {
   // Example of withBadge: shows the number of members in the workspace in the icon
   //const BadgedAvatar = withBadge(workspace.members.length.toString(), {right: -3, status: 'primary'})(Avatar);
   //const workspaceAvatar = <BadgedAvatar rounded={true} title={workspace.name[0]} />;
@@ -79,7 +79,7 @@ export const makeWorkspaceListItem = (workspace) => {
   return (
     // FROM: https://react-native-elements.github.io/react-native-elements/docs/listitem.html
     <ListItem
-      key={workspace.index} // FIXME: make unique 
+      key={workspace.index} // FIXME: make unique
       Component={TouchableScale}
       friction={90} //
       tension={100} // These props are passed to the parent component (here TouchableScale)
@@ -88,38 +88,29 @@ export const makeWorkspaceListItem = (workspace) => {
       //ViewComponent={LinearGradient} // Only if no expo
 
       // Uncomment leftElement line to display number of members in icon
-      //leftElement={workspaceAvatar} 
-      leftAvatar={({ rounded: true, title: workspace.name[0] })}
-
+      //leftElement={workspaceAvatar}
+      leftAvatar={{ rounded: true, title: workspace.name[0] }}
       title={workspace.name}
       titleStyle={{ color: "white", fontWeight: "bold" }}
       subtitleStyle={{ color: "white" }}
       subtitle={workspace.name}
       rightElement={<Badge value={workspace.lists.length}></Badge>}
       chevron={{ color: "white" }}
-    />);
-}
+    />
+  );
+};
 
-export const showMessage = (msg) => {
-
-}
+export const showMessage = msg => {};
 
 export const objectMap = (obj, fn) =>
-  Object.fromEntries(
-    Object.entries(obj).map(
-      ([k, v], i) => [k, fn(v, k, i)]
-    )
-  )
+  Object.fromEntries(Object.entries(obj).map(([k, v], i) => [k, fn(v, k, i)]));
 export const objectFilter = (obj, fn) =>
   Object.fromEntries(
-    Object.entries(obj).filter(
-      ([k, v], i) => [k, fn(v, k, i)]
-    )
-  )
-
+    Object.entries(obj).filter(([k, v], i) => [k, fn(v, k, i)])
+  );
 
 export const immutableReplaceAtIndex = (array, index, element) => {
   const newArray = array.slice();
   newArray[index] = element;
   return newArray;
-}
+};

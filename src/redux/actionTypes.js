@@ -8,3 +8,7 @@ export const SHOPPING_LIST = {
     RENAME: 'RENAME',
     TOGGLE_STATE: 'TOGGLE_STATE',
 };
+
+export const WORKSPACE = {
+    CREATE: 'CREATE',
+};

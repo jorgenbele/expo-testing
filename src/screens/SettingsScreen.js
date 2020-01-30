@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export const TabColor = '#fff'
+export const TabColor = "#fff";
